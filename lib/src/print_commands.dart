@@ -180,20 +180,20 @@ class PrintCommands {
   /// imageSize [Size] is the size of image generated.
   /// sets the [TextDirection].
   static Future<Uint8List?> createImageFromWidget(
-    BuildContext context,
-    Widget widget, {
-    Duration? wait,
-    Size? logicalSize,
-    Size? imageSize,
-    TextDirection textDirection = TextDirection.ltr,
-  }) async {
+      BuildContext context,
+      Widget widget, {
+        Duration? wait,
+        Size? logicalSize,
+        Size? imageSize,
+        TextDirection textDirection = TextDirection.ltr,
+      }) async {
     final RenderRepaintBoundary repaintBoundary = RenderRepaintBoundary();
     logicalSize ??=
-        View.of(context).physicalSize / View.of(context).devicePixelRatio;
-    imageSize ??= View.of(context).physicalSize;
+        ui.window.physicalSize / ui.window.devicePixelRatio;
+    imageSize ??= ui.window.physicalSize;
     assert(logicalSize.aspectRatio == imageSize.aspectRatio);
     final RenderView renderView = RenderView(
-      view: WidgetsFlutterBinding.ensureInitialized()
+      window: WidgetsFlutterBinding.ensureInitialized()
           .platformDispatcher
           .views
           .first,
@@ -214,7 +214,7 @@ class PrintCommands {
     renderView.prepareInitialFrame();
 
     final RenderObjectToWidgetElement<RenderBox> rootElement =
-        RenderObjectToWidgetAdapter<RenderBox>(
+    RenderObjectToWidgetAdapter<RenderBox>(
       container: repaintBoundary,
       child: Directionality(
         textDirection: textDirection,
@@ -241,7 +241,7 @@ class PrintCommands {
       pixelRatio: imageSize.width / logicalSize.width,
     );
     final ByteData? byteData =
-        await image.toByteData(format: ui.ImageByteFormat.png);
+    await image.toByteData(format: ui.ImageByteFormat.png);
 
     return byteData?.buffer.asUint8List();
   }
