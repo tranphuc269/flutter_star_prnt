@@ -16,7 +16,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  animated_snack_bar: ^0.3.1
+  pretty_qr_code: ^2.0.3
+  flutter_smart_dialog: ^4.9.0+6
   flutter_star_prnt:
     path: ../
 
